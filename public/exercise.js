@@ -12,17 +12,18 @@ const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout")
+const newWorkout = document.querySelector(".new-workout");
 
 let workoutType = null;
 let shouldNavigateAway = false;
 
+//this function creates an empty row in the db in order to create a user id to use for the location reference
 async function initExercise() {
   let workout;
 
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
-    console.log(workout)
+
   }
   if (workout) {
     location.search = "?id=" + workout._id;
@@ -127,6 +128,8 @@ function handleToastAnimationEnd() {
 }
 
 function clearInputs() {
+    addButton.setAttribute("disabled", true);
+  completeButton.setAttribute("disabled", true);
   cardioNameInput.value = "";
   nameInput.value = "";
   setsInput.value = "";
